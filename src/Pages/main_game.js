@@ -13,6 +13,7 @@ import road from "../assets/road_rocks.jpg";
 import Abad from "../assets/sanantonioabad.jpg";
 import plazaSantaana from "../assets/plazasantaana.jpg";
 import videoPalacete from "../assets/VídeoPalacete.mp4";
+import logo from "../../public/logo.png";
 
 const Main_game = () => {
   /* Thumbnails */
@@ -49,6 +50,10 @@ const Main_game = () => {
     shader: "flat",
     src: "thumbs/MercadoVegueta800.jpg",
   };
+  let logo = {
+    shader: "flat",
+    src: "thumbs/logo.png",
+  };
 
   /* Hook to change the environment depending on the id of the thumb*/
 
@@ -65,6 +70,12 @@ const Main_game = () => {
     } else {
       trianaPropsFalse();
     }
+  };
+
+  /* Exit to the main page */
+
+  const exit = () => {
+    window.location = "/";
   };
 
   /* arrow function to play video of Triana */
@@ -111,6 +122,8 @@ const Main_game = () => {
           <img id="plazasantaana" src={plazaSantaana} />
           <img id="abad" src={Abad} />
           <img id="road" src={road} />
+
+          {/*Triana video */}
           <video loop="false" id="video" src={videoPalacete} />
         </a-assets>
         <Entity
@@ -136,15 +149,18 @@ const Main_game = () => {
           position={{ x: 0, y: 4, z: -1 }}
         />
         <Entity
-          text={{
-            value: "Bienvenido a la experiencia virtual de InRoom",
-            align: "center",
-            color: "black",
-            height: 6,
-            width: 6,
-            font: "https://cdn.aframe.io/fonts/DejaVu-sdf.fnt",
-          }}
+          geometry={{ primitive: "plane", height: 0.8 }}
+          material={logo}
+          id={"logo"}
           position={{ x: 0, y: 3, z: -4.8 }}
+          events={{ mouseenter: exit }}
+          animation__scale={{
+            property: "scale",
+            dir: "alternate",
+            dur: 1000,
+            loop: true,
+            to: "1.04 1.04 1",
+          }}
         />
         <Entity
           text={{
@@ -255,6 +271,7 @@ const Main_game = () => {
             to: "1.04 1.04 1",
           }}
         />
+
         <Entity
           geometry={{
             primitive: "box",
@@ -311,6 +328,7 @@ const Main_game = () => {
           position={{ x: 0, y: 3.9, z: -5.1 }}
           rotation="20 0 0"
         />
+
         <Entity
           classname={"trianaProps"}
           visible="false"
