@@ -58,6 +58,8 @@ const Main_game = () => {
     let entorno = event.target.id;
     setSky(entorno);
     console.log(sky);
+
+    /* If 'entorno' equals triana got to the functions who set the props true */
     if (entorno === "triana") {
       trianaProps();
     } else {
@@ -65,22 +67,28 @@ const Main_game = () => {
     }
   };
 
+  /* arrow function to play video of Triana */
+
   const playVideo = () => {
     const video = document.querySelector("#video");
     video.play();
   };
+
+  /* arrow function to stop video of Triana */
   const stopVideo = () => {
     const video = document.querySelector("#video");
     video.pause();
     video.currentTime = 0;
   };
 
+  /* Function to set visibility of triana props true */
   const trianaProps = () => {
     document.getElementById("barraTriana").setAttribute("visible", true);
     document.getElementById("pantallaTriana").setAttribute("visible", true);
     document.getElementById("textoTriana").setAttribute("visible", true);
     document.getElementById("videoTriana").setAttribute("visible", true);
   };
+  /* Function to set visibility of triana props false */
   const trianaPropsFalse = () => {
     document.getElementById("barraTriana").setAttribute("visible", false);
     document.getElementById("pantallaTriana").setAttribute("visible", false);
@@ -330,25 +338,6 @@ const Main_game = () => {
           events={{ mouseenter: playVideo }}
         />
 
-        {/* 
-        <Entity
-          animation__scale={{
-            property: "scale",
-            dir: "alternate",
-            dur: 1000,
-            loop: true,
-            to: "2 2 1",
-          }}
-          geometry={{
-            primitive: "box",
-            depth: 0.1,
-            height: 0.1,
-            width: 0.1,
-            radius: 1,
-          }}
-          material={{ color: "#24CAFF" }}
-          position={{ x: 0, y: 1.5, z: -1 }}
-        /> */}
         <Entity primitive="a-camera">
           <Entity
             primitive="a-cursor"
