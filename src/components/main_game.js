@@ -50,7 +50,7 @@ const Main_game = () => {
 
   /* Hook para cambiar el entorno al hacer mouseover en las thumbs */
 
-  const [sky, setSky] = useState("museopg");
+  const [sky, setSky] = useState("triana");
 
   const handleOver = (event) => {
     let entorno = event.target.id;
