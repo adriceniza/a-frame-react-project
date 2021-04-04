@@ -6,18 +6,16 @@ import { Entity, Scene } from "aframe-react";
 import React, { useState } from "react";
 import Triana from "../assets/triana.jpg";
 import museopg from "../assets/museopg.jpg";
-import cmoderna from "../assets/nulaspalmas.jpg";
-import vegueta from "../assets/plazapilarnuevo.jpg";
-import teatro from "../assets/teatro.jpg";
+import Palacete from "../assets/nulaspalmas.jpg";
+import Pilar from "../assets/plazapilarnuevo.jpg";
+import Teatro from "../assets/teatro.jpg";
 import road from "../assets/road_floor.jfif";
+import Abad from "../assets/sanantonioabad.jpg";
+import plazaSantaana from "../assets/plazasantaana.jpg";
 
 const Main_game = () => {
   /* Defino las thumbs */
 
-  let cmoderna = {
-    shader: "flat",
-    src: "thumbs/CasamodernistaTriana800.jpg",
-  };
   let triana = {
     shader: "flat",
     src: "thumbs/TRIANA-THUMB.jpg",
@@ -42,6 +40,10 @@ const Main_game = () => {
     shader: "flat",
     src: "thumbs/MuseoPérezGaldós800.jpg",
   };
+  let CATEDRAL = {
+    shader: "flat",
+    src: "thumbs/Catedral800.jpg",
+  };
   let vegueta = {
     shader: "flat",
     src: "thumbs/MercadoVegueta800.jpg",
@@ -56,18 +58,20 @@ const Main_game = () => {
     let entorno = event.target.id;
     setSky(entorno);
     console.log(entorno);
-    console.log("algo hace");
   };
 
   return (
     <div>
       <Scene>
         <a-assets>
+          <img id="pilarnuevo" src={Pilar} />
           <img id="museopg" src={museopg} />
           <img id="triana" src={Triana} />
-          <img id="teatro" src={teatro} />
+          <img id="teatro" src={Teatro} />
           <img id="vegueta" src={vegueta} />
-          <img id="cmoderna" src={cmoderna} />
+          <img id="palacete" src={Palacete} />
+          <img id="plazasantaana" src={plazaSantaana} />
+          <img id="abad" src={Abad} />
           <img id="road" src={road} />
         </a-assets>
 
@@ -142,9 +146,9 @@ const Main_game = () => {
         <Entity
           geometry={{ primitive: "plane", height: 0.8 }}
           position={{ x: -0, y: 2, z: -4.8 }}
-          material={cmoderna}
+          material={CATEDRAL}
           events={{ mouseenter: handleOver }}
-          id={"cmoderna"}
+          id={"plazasantaana"}
         />
         <Entity
           geometry={{ primitive: "plane", height: 0.8 }}
@@ -162,8 +166,8 @@ const Main_game = () => {
         />
         <Entity
           geometry={{ primitive: "plane", height: 0.8 }}
-          material={vegueta}
-          id={"vegueta"}
+          material={teatro}
+          id={"teatro"}
           position={{ x: 3.2, y: 2, z: -4.8 }}
           events={{ mouseenter: handleOver }}
         />
