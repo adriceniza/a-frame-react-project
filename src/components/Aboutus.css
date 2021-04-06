@@ -4,26 +4,32 @@
   background-color: white;
   text-align: center;
   font-family: "Righteous", cursive;
-  height: 100vh;
+
+  height: 100%;
+  max-height: 125;
   align-items: center;
+  margin-bottom: 15vh;
 }
 
 header h1 {
-  margin-top: 35vh;
+  margin-top: 15vh;
   font-size: 66px;
 }
 
 .information p {
   font-size: 22px;
   margin-bottom: 10vh;
+  margin-right: 5vh;
+  margin-left: 5vh;
 }
 .highschool-images {
-  max-width: auto;
-  margin: 0 auto;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-areas: "a b ";
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .right {
@@ -40,4 +46,19 @@ header h1 {
   padding: 1rem;
   max-width: 100%;
   border-radius: 24px;
+}
+
+@media screen and (max-width: 970px) {
+  header h1 {
+    margin-top: 5vh;
+    font-size: 66px;
+  }
+  .right img,
+  .left img {
+    width: 450px;
+    height: 300px;
+    padding: 1rem;
+    max-width: 100%;
+    border-radius: 24px;
+  }
 }
