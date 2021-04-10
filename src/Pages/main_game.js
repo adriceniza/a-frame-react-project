@@ -105,6 +105,7 @@ const Main_game = () => {
     document.getElementById("pantallaTriana").setAttribute("visible", false);
     document.getElementById("textoTriana").setAttribute("visible", false);
     document.getElementById("videoTriana").setAttribute("visible", false);
+
     stopVideo();
   };
 

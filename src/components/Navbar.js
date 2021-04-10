@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 const Navbar = () => {
   const [click, setClick] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const handleClick = () => {
     setClick(!click);
@@ -23,20 +22,6 @@ const Navbar = () => {
 
   window.addEventListener("scroll", changeBackground);
 
-  const onMouseEnter = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false);
-    } else {
-      setDropdown(true);
-    }
-  };
-  const onMouseLeave = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false);
-    } else {
-      setDropdown(false);
-    }
-  };
 
   return (
     <nav className={navbar ? "navbar active" : "navbar"}>

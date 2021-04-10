@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box;
+}
+.wrapper .left {
+  height: 50vh;
+  width: 100%;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+}
+
+.wrapper .right {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+}
+
+.wrapper .image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.main {
+  position: fixed;
+  background: url("../assets/background.jpg");
+  filter: grayscale(1);
+  transition: all 0.4s ease-in;
+}
+
+.game {
+  position: fixed;
+  background: url("../assets/gameBackground.jpg");
+  filter: grayscale(1);
+  transition: all 0.4s ease-in;
+}
+
+.main:hover {
+  filter: grayscale(0);
+}
+.game:hover {
+  filter: grayscale(0);
+}
+.centered {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 120px;
+  color: white;
+  font-family: "Righteous", cursive;
+  transition: all 0.3s ease-in;
+}
+
+p {
+  transition: all 0.5s;
+}
+
+.game:hover p {
+  transform: scale(1.1);
+}
+
+.main:hover p {
+  transform: scale(1.1);
+}

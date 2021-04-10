@@ -51,6 +51,7 @@
   font-size: 1.2rem;
   position: fixed;
   z-index: 9999999;
+  align-items: center;
 }
 
 .navbar-logo {
@@ -155,9 +156,8 @@
 
   .navbar-logo {
     position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(25%, 50%);
+    top: 25%;
+    margin-left: 0;
   }
 
   .menu-icon {
