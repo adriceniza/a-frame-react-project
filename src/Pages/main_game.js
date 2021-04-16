@@ -13,8 +13,6 @@ import road from "../assets/road_rocks.jpg";
 import Abad from "../assets/sanantonioabad.jpg";
 import plazaSantaana from "../assets/plazasantaana.jpg";
 import videoPalacete from "../assets/VídeoPalacete.mp4";
-import logo from "../../public/logo.png";
-
 const Main_game = () => {
   /* Thumbnails */
 
@@ -55,6 +53,11 @@ const Main_game = () => {
     src: "thumbs/logo.png",
   };
 
+  let oldTranvia = {
+    shader: "flat",
+    src: "oldImages/Tranvia1.jpg",
+  };
+
   /* Hook to change the environment depending on the id of the thumb*/
 
   const [sky, setSky] = useState("triana");
@@ -65,12 +68,19 @@ const Main_game = () => {
     console.log(sky);
 
     /* If 'entorno' equals triana got to the functions who set the props true */
-    if (entorno === "triana") {
-      trianaProps();
+    if (entorno === "palacete") {
+      palaceteProps();
     } else {
-      trianaPropsFalse();
+      palacetePropsFalse();
+    }
+    if (entorno === "triana") {
+      setTrianaItems(true);
+    } else {
+      setTrianaItems(false);
     }
   };
+
+  const [trianaItems, setTrianaItems] = useState(false);
 
   /* Exit to the main page */
 
@@ -93,14 +103,14 @@ const Main_game = () => {
   };
 
   /* Function to set visibility of triana props true */
-  const trianaProps = () => {
+  const palaceteProps = () => {
     document.getElementById("barraTriana").setAttribute("visible", true);
     document.getElementById("pantallaTriana").setAttribute("visible", true);
     document.getElementById("textoTriana").setAttribute("visible", true);
     document.getElementById("videoTriana").setAttribute("visible", true);
   };
   /* Function to set visibility of triana props false */
-  const trianaPropsFalse = () => {
+  const palacetePropsFalse = () => {
     document.getElementById("barraTriana").setAttribute("visible", false);
     document.getElementById("pantallaTriana").setAttribute("visible", false);
     document.getElementById("textoTriana").setAttribute("visible", false);
@@ -108,10 +118,15 @@ const Main_game = () => {
 
     stopVideo();
   };
+  const [menu, setMenu] = useState(false);
+
+  const hideMenu = () => {
+    setMenu(!menu);
+  };
 
   return (
     <div>
-      <Scene>
+      <Scene inspector>
         <a-assets>
           {/* Sky environments and floor*/}
           <img id="pilarnuevo" src={Pilar} />
@@ -139,22 +154,21 @@ const Main_game = () => {
           primitive="a-light"
           type="point"
           intensity="2"
-          position="2 4 4"
+          position="2 5 4"
         />
         <Entity
           primitive="a-sky"
-          height="14"
           radius="10"
           src={`#${sky}`}
-          width="14"
-          position={{ x: 0, y: 4, z: -1 }}
+          // width="14"
+          position={{ x: 0, y: 3.3, z: 0 }}
         />
         <Entity
           geometry={{ primitive: "plane", height: 0.8 }}
           material={logo}
           id={"logo"}
           position={{ x: 0, y: 3, z: -4.8 }}
-          events={{ mouseenter: exit }}
+          events={{ mouseenter: hideMenu }}
           animation__scale={{
             property: "scale",
             dir: "alternate",
@@ -164,6 +178,8 @@ const Main_game = () => {
           }}
         />
         <Entity
+          classname={"menu"}
+          visible={menu ? true : false}
           text={{
             value: "Elige un entorno mirando hacia la miniatura que quieras.",
             align: "center",
@@ -175,11 +191,28 @@ const Main_game = () => {
           position={{ x: 0, y: 1, z: -4.8 }}
         />
         <Entity
+          classname={"menu"}
+          visible={menu ? true : false}
+          text={{
+            value: "Exit",
+            align: "center",
+            color: "black",
+            height: 6,
+            width: 8,
+            font: "https://cdn.aframe.io/fonts/DejaVu-sdf.fnt",
+          }}
+          events={{ mouseenter: exit }}
+          position={{ x: 3.4, y: 3.2, z: -4.8 }}
+        />
+
+        <Entity
+          classname={"menu"}
           geometry={{ primitive: "plane", height: 0.8 }}
           position={{ x: -3.28, y: 2, z: -4.8 }}
           material={perezGaldos}
           events={{ mouseenter: handleOver }}
           id={"museopg"}
+          visible={menu ? true : false}
           animation__scale={{
             property: "scale",
             dir: "alternate",
@@ -189,11 +222,13 @@ const Main_game = () => {
           }}
         />
         <Entity
+          classname={"menu"}
           geometry={{ primitive: "plane", height: 0.8 }}
           position={{ x: -2.2, y: 2, z: -4.8 }}
           material={abad}
           events={{ mouseenter: handleOver }}
           id={"abad"}
+          visible={menu ? true : false}
           animation__scale={{
             property: "scale",
             dir: "alternate",
@@ -203,9 +238,20 @@ const Main_game = () => {
           }}
         />
         <Entity
+          classname={"trianaItem"}
+          geometry={{ primitive: "plane", height: 4, width: 5 }}
+          position={{ x: -6, y: 4, z: -6.8 }}
+          material={oldTranvia}
+          visible={trianaItems ? true : false}
+          rotation="10 65 0"
+        />
+
+        <Entity
+          classname={"menu"}
           geometry={{ primitive: "plane", height: 0.8 }}
           position={{ x: -1.12, y: 2, z: -4.8 }}
           material={pilarnuevo}
+          visible={menu ? true : false}
           events={{ mouseenter: handleOver }}
           id={"pilarnuevo"}
           animation__scale={{
@@ -217,9 +263,11 @@ const Main_game = () => {
           }}
         />
         <Entity
+          classname={"menu"}
           geometry={{ primitive: "plane", height: 0.8 }}
           position={{ x: -0.04, y: 2, z: -4.8 }}
           material={CATEDRAL}
+          visible={menu ? true : false}
           events={{ mouseenter: handleOver }}
           id={"plazasantaana"}
           animation__scale={{
@@ -231,6 +279,8 @@ const Main_game = () => {
           }}
         />
         <Entity
+          classname={"menu"}
+          visible={menu ? true : false}
           geometry={{ primitive: "plane", height: 0.8 }}
           material={palacete}
           position={{ x: 1.05, y: 2, z: -4.8 }}
@@ -245,6 +295,8 @@ const Main_game = () => {
           }}
         />
         <Entity
+          classname={"menu"}
+          visible={menu ? true : false}
           geometry={{ primitive: "plane", height: 0.8 }}
           material={triana}
           id={"triana"}
@@ -259,6 +311,8 @@ const Main_game = () => {
           }}
         />
         <Entity
+          classname={"menu"}
+          visible={menu ? true : false}
           geometry={{ primitive: "plane", height: 0.8 }}
           material={teatro}
           id={"teatro"}
@@ -280,27 +334,32 @@ const Main_game = () => {
             height: 1,
             width: 7.8,
           }}
+          visible={menu ? true : false}
           material={{ color: "#000" }}
           position={{ x: 0, y: 2, z: -5.1 }}
         />
         <Entity
+          classname={"menu"}
+          visible={menu ? true : false}
           geometry={{
             primitive: "box",
             depth: 0.4,
             height: 1,
             width: 7.8,
           }}
-          material={{ color: "#fff" }}
+          material={{ color: "#fffaf2" }}
           position={{ x: 0, y: 3, z: -5.1 }}
         />
         <Entity
+          classname={"menu"}
+          visible={menu ? true : false}
           geometry={{
             primitive: "box",
             depth: 0.4,
             height: 1,
             width: 7.8,
           }}
-          material={{ color: "#fff" }}
+          material={{ color: "#fffaf2" }}
           position={{ x: 0, y: 1, z: -5.1 }}
         />
         <Entity
@@ -329,7 +388,6 @@ const Main_game = () => {
           position={{ x: 0, y: 3.9, z: -5.1 }}
           rotation="20 0 0"
         />
-
         <Entity
           classname={"trianaProps"}
           visible="false"
@@ -356,10 +414,10 @@ const Main_game = () => {
           width="4.3"
           events={{ mouseenter: playVideo }}
         />
-
         <Entity primitive="a-camera">
           <Entity
             primitive="a-cursor"
+            color="#20dad8"
             animation__click={{
               property: "scale",
               startEvents: "mouseenter",
