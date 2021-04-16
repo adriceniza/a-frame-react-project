@@ -9,7 +9,6 @@ import museopg from "../assets/museopg.jpg";
 import Palacete from "../assets/nulaspalmas.jpg";
 import Pilar from "../assets/plazapilarnuevo.jpg";
 import Teatro from "../assets/teatro.jpg";
-import road from "../assets/road_rocks.jpg";
 import Abad from "../assets/sanantonioabad.jpg";
 import plazaSantaana from "../assets/plazasantaana.jpg";
 import videoPalacete from "../assets/VídeoPalacete.mp4";
@@ -69,9 +68,10 @@ const Main_game = () => {
 
     /* If 'entorno' equals triana got to the functions who set the props true */
     if (entorno === "palacete") {
-      palaceteProps();
+      setPalaceteItems(true);
     } else {
-      palacetePropsFalse();
+      setPalaceteItems(false);
+      stopVideo();
     }
     if (entorno === "triana") {
       setTrianaItems(true);
@@ -81,6 +81,7 @@ const Main_game = () => {
   };
 
   const [trianaItems, setTrianaItems] = useState(false);
+  const [palaceteItems, setPalaceteItems] = useState(false);
 
   /* Exit to the main page */
 
@@ -102,22 +103,6 @@ const Main_game = () => {
     video.currentTime = 0;
   };
 
-  /* Function to set visibility of triana props true */
-  const palaceteProps = () => {
-    document.getElementById("barraTriana").setAttribute("visible", true);
-    document.getElementById("pantallaTriana").setAttribute("visible", true);
-    document.getElementById("textoTriana").setAttribute("visible", true);
-    document.getElementById("videoTriana").setAttribute("visible", true);
-  };
-  /* Function to set visibility of triana props false */
-  const palacetePropsFalse = () => {
-    document.getElementById("barraTriana").setAttribute("visible", false);
-    document.getElementById("pantallaTriana").setAttribute("visible", false);
-    document.getElementById("textoTriana").setAttribute("visible", false);
-    document.getElementById("videoTriana").setAttribute("visible", false);
-
-    stopVideo();
-  };
   const [menu, setMenu] = useState(false);
 
   const hideMenu = () => {
@@ -137,18 +122,11 @@ const Main_game = () => {
           <img id="palacete" src={Palacete} />
           <img id="plazasantaana" src={plazaSantaana} />
           <img id="abad" src={Abad} />
-          <img id="road" src={road} />
 
           {/*Triana video */}
           <video loop="false" id="video" src={videoPalacete} />
         </a-assets>
-        <Entity
-          primitive="a-plane"
-          src="#road"
-          rotation="-90 -6 0"
-          height="25"
-          width="25"
-        />
+
         <Entity primitive="a-light" type="ambient" color="#445451" />
         <Entity
           primitive="a-light"
@@ -156,13 +134,7 @@ const Main_game = () => {
           intensity="2"
           position="2 5 4"
         />
-        <Entity
-          primitive="a-sky"
-          radius="10"
-          src={`#${sky}`}
-          // width="14"
-          position={{ x: 0, y: 3.3, z: 0 }}
-        />
+        <Entity primitive="a-sky" radius="10" src={`#${sky}`} />
         <Entity
           geometry={{ primitive: "plane", height: 0.8 }}
           material={logo}
@@ -240,10 +212,10 @@ const Main_game = () => {
         <Entity
           classname={"trianaItem"}
           geometry={{ primitive: "plane", height: 4, width: 5 }}
-          position={{ x: -6, y: 4, z: -6.8 }}
+          position={{ x: -5.5, y: 4, z: -4 }}
           material={oldTranvia}
           visible={trianaItems ? true : false}
-          rotation="10 65 0"
+          rotation="10 50 0"
         />
 
         <Entity
@@ -363,8 +335,7 @@ const Main_game = () => {
           position={{ x: 0, y: 1, z: -5.1 }}
         />
         <Entity
-          visible="false"
-          id={"pantallaTriana"}
+          visible={palaceteItems ? true : false}
           geometry={{
             primitive: "box",
             depth: 0.4,
@@ -376,8 +347,7 @@ const Main_game = () => {
           rotation="20 0 0"
         />
         <Entity
-          visible="false"
-          id={"barraTriana"}
+          visible={palaceteItems ? true : false}
           geometry={{
             primitive: "box",
             depth: 0.4,
@@ -389,8 +359,7 @@ const Main_game = () => {
           rotation="20 0 0"
         />
         <Entity
-          classname={"trianaProps"}
-          visible="false"
+          visible={palaceteItems ? true : false}
           id={"textoTriana"}
           text={{
             value: "Mira hacia la pantalla",
@@ -404,8 +373,7 @@ const Main_game = () => {
           rotation="20 0 0"
         />
         <Entity
-          id={"videoTriana"}
-          visible="false"
+          visible={palaceteItems ? true : false}
           primitive="a-video"
           src="#video"
           position={{ x: 0, y: 5.3, z: -4.7 }}
