@@ -3,7 +3,7 @@ import "aframe-animation-component";
 import "aframe-particle-system-component";
 import "babel-polyfill";
 import { Entity, Scene } from "aframe-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Triana from "../assets/triana.jpg";
 import museopg from "../assets/museopg.jpg";
 import Palacete from "../assets/nulaspalmas.jpg";
@@ -11,6 +11,7 @@ import Pilar from "../assets/plazapilarnuevo.jpg";
 import Teatro from "../assets/teatro.jpg";
 import Abad from "../assets/sanantonioabad.jpg";
 import plazaSantaana from "../assets/plazasantaana.jpg";
+import veguetaSky from "../assets/teatro.jpg";
 import videoPalacete from "../assets/VídeoPalacete.mp4";
 const Main_game = () => {
   /* Thumbnails */
@@ -47,14 +48,60 @@ const Main_game = () => {
     shader: "flat",
     src: "thumbs/MercadoVegueta800.jpg",
   };
-  let logo = {
+  let hamburguerOpened = {
     shader: "flat",
-    src: "thumbs/logo.png",
+    src: "thumbs/hamburguer_opened.png",
+    transparent: true,
+  };
+  let hamburguerClosed = {
+    shader: "flat",
+    src: "thumbs/hamburguer_closed.png",
+    transparent: false,
+  };
+  let exitImage = {
+    shader: "flat",
+    src: "thumbs/exit.png",
+    transparent: true,
+  };
+  let mainLayout = {
+    shader: "flat",
+    src: "Thumbs/layout.png",
   };
 
   let oldTranvia = {
     shader: "flat",
     src: "oldImages/Tranvia1.jpg",
+    transparent: true,
+  };
+  let oldTeatroPg = {
+    shader: "flat",
+    src: "oldImages/teatropg.jpg",
+    transparent: true,
+  };
+  let oldPuentepalo = {
+    shader: "flat",
+    src: "oldImages/puentepalo.jpg",
+    transparent: true,
+  };
+  let oldPilarNuevo = {
+    shader: "flat",
+    src: "oldImages/PilarNuevo.jpg",
+    transparent: true,
+  };
+  let oldVegueta = {
+    shader: "flat",
+    src: "oldImages/Vegueta.jpg",
+    transparent: true,
+  };
+  let oldAbad = {
+    shader: "flat",
+    src: "oldImages/Abad.jpg",
+    transparent: true,
+  };
+  let oldSantaAna = {
+    shader: "flat",
+    src: "oldImages/santaAna.jpg",
+    transparent: true,
   };
 
   /* Hook to change the environment depending on the id of the thumb*/
@@ -64,7 +111,9 @@ const Main_game = () => {
   const handleOver = (event) => {
     let entorno = event.target.id;
     setSky(entorno);
-    console.log(sky);
+    setTimeout(() => {
+      hideMenu();
+    }, 200);
 
     /* If 'entorno' equals triana got to the functions who set the props true */
     if (entorno === "palacete") {
@@ -78,10 +127,46 @@ const Main_game = () => {
     } else {
       setTrianaItems(false);
     }
+    if (entorno === "abad") {
+      setAbadItems(true);
+    } else {
+      setAbadItems(false);
+    }
+    if (entorno === "museopg") {
+      setMuseoItems(true);
+    } else {
+      setMuseoItems(false);
+    }
+    if (entorno === "vegueta") {
+      setVeguetaItems(true);
+    } else {
+      setVeguetaItems(false);
+    }
+    if (entorno === "plazasantaana") {
+      setSantaAnaItems(true);
+    } else {
+      setSantaAnaItems(false);
+    }
+    if (entorno === "pilarnuevo") {
+      setPilarItems(true);
+    } else {
+      setPilarItems(false);
+    }
+    if (entorno === "teatro") {
+      setTeatroItems(true);
+    } else {
+      setTeatroItems(false);
+    }
   };
 
   const [trianaItems, setTrianaItems] = useState(false);
   const [palaceteItems, setPalaceteItems] = useState(false);
+  const [pilarItems, setPilarItems] = useState(false);
+  const [abadItems, setAbadItems] = useState(false);
+  const [veguetaItems, setVeguetaItems] = useState(false);
+  const [santaaanaItems, setSantaAnaItems] = useState(false);
+  const [teatroItems, setTeatroItems] = useState(false);
+  const [museoItems, setMuseoItems] = useState(false);
 
   /* Exit to the main page */
 
@@ -118,7 +203,7 @@ const Main_game = () => {
           <img id="museopg" src={museopg} />
           <img id="triana" src={Triana} />
           <img id="teatro" src={Teatro} />
-          <img id="vegueta" src={vegueta} />
+          <img id="vegueta" src={veguetaSky} />
           <img id="palacete" src={Palacete} />
           <img id="plazasantaana" src={plazaSantaana} />
           <img id="abad" src={Abad} />
@@ -126,7 +211,6 @@ const Main_game = () => {
           {/*Triana video */}
           <video loop="false" id="video" src={videoPalacete} />
         </a-assets>
-
         <Entity primitive="a-light" type="ambient" color="#445451" />
         <Entity
           primitive="a-light"
@@ -136,10 +220,10 @@ const Main_game = () => {
         />
         <Entity primitive="a-sky" radius="10" src={`#${sky}`} />
         <Entity
-          geometry={{ primitive: "plane", height: 0.8 }}
-          material={logo}
+          geometry={{ primitive: "circle", radius: 0.46 }}
+          material={menu ? hamburguerOpened : hamburguerClosed}
           id={"logo"}
-          position={{ x: 0, y: 3, z: -4.8 }}
+          position={{ x: -4, y: 3.6, z: -5.6 }}
           events={{ mouseenter: hideMenu }}
           animation__scale={{
             property: "scale",
@@ -150,121 +234,73 @@ const Main_game = () => {
           }}
         />
         <Entity
-          classname={"menu"}
-          visible={menu ? true : false}
-          text={{
-            value: "Elige un entorno mirando hacia la miniatura que quieras.",
-            align: "center",
-            color: "black",
-            height: 6,
-            width: 6,
-            font: "https://cdn.aframe.io/fonts/DejaVu-sdf.fnt",
-          }}
-          position={{ x: 0, y: 1, z: -4.8 }}
-        />
-        <Entity
-          classname={"menu"}
-          visible={menu ? true : false}
-          text={{
-            value: "Exit",
-            align: "center",
-            color: "black",
-            height: 6,
-            width: 8,
-            font: "https://cdn.aframe.io/fonts/DejaVu-sdf.fnt",
-          }}
+          geometry={{ primitive: "plane", height: 1.2, width: 2 }}
+          material={exitImage}
+          id={"exitImage"}
+          position={{ x: 4, y: 3.85, z: -5.8 }}
           events={{ mouseenter: exit }}
-          position={{ x: 3.4, y: 3.2, z: -4.8 }}
+          visible={menu ? true : false}
+          animation__scale={{
+            property: "scale",
+            dir: "alternate",
+            dur: 1000,
+            loop: true,
+            to: "1.04 1.04 1",
+          }}
         />
-
         <Entity
           classname={"menu"}
           geometry={{ primitive: "plane", height: 0.8 }}
-          position={{ x: -3.28, y: 2, z: -4.8 }}
+          position={{ x: -1.8, y: 1.87888, z: -5.8 }}
           material={perezGaldos}
           events={{ mouseenter: handleOver }}
           id={"museopg"}
           visible={menu ? true : false}
-          animation__scale={{
-            property: "scale",
-            dir: "alternate",
-            dur: 1000,
-            loop: true,
-            to: "1.04 1.04 1",
-          }}
         />
         <Entity
           classname={"menu"}
           geometry={{ primitive: "plane", height: 0.8 }}
-          position={{ x: -2.2, y: 2, z: -4.8 }}
+          position={{ x: -4.201, y: 1.87888, z: -5.8 }}
+          material={vegueta}
+          events={{ mouseenter: handleOver }}
+          id={"vegueta"}
+          visible={menu ? true : false}
+        />
+        <Entity
+          classname={"menu"}
+          geometry={{ primitive: "plane", height: 0.8 }}
+          position={{ x: -3, y: 1.87888, z: -5.8 }}
           material={abad}
           events={{ mouseenter: handleOver }}
           id={"abad"}
           visible={menu ? true : false}
-          animation__scale={{
-            property: "scale",
-            dir: "alternate",
-            dur: 1000,
-            loop: true,
-            to: "1.04 1.04 1",
-          }}
         />
-        <Entity
-          classname={"trianaItem"}
-          geometry={{ primitive: "plane", height: 4, width: 5 }}
-          position={{ x: -5.5, y: 4, z: -4 }}
-          material={oldTranvia}
-          visible={trianaItems ? true : false}
-          rotation="10 50 0"
-        />
-
         <Entity
           classname={"menu"}
           geometry={{ primitive: "plane", height: 0.8 }}
-          position={{ x: -1.12, y: 2, z: -4.8 }}
+          position={{ x: -0.62, y: 1.87888, z: -5.8 }}
           material={pilarnuevo}
           visible={menu ? true : false}
           events={{ mouseenter: handleOver }}
           id={"pilarnuevo"}
-          animation__scale={{
-            property: "scale",
-            dir: "alternate",
-            dur: 1000,
-            loop: true,
-            to: "1.04 1.04 1",
-          }}
         />
         <Entity
           classname={"menu"}
           geometry={{ primitive: "plane", height: 0.8 }}
-          position={{ x: -0.04, y: 2, z: -4.8 }}
+          position={{ x: 0.615, y: 1.87888, z: -5.8 }}
           material={CATEDRAL}
           visible={menu ? true : false}
           events={{ mouseenter: handleOver }}
           id={"plazasantaana"}
-          animation__scale={{
-            property: "scale",
-            dir: "alternate",
-            dur: 1000,
-            loop: true,
-            to: "1.04 1.04 1",
-          }}
         />
         <Entity
           classname={"menu"}
           visible={menu ? true : false}
           geometry={{ primitive: "plane", height: 0.8 }}
           material={palacete}
-          position={{ x: 1.05, y: 2, z: -4.8 }}
+          position={{ x: 1.83, y: 1.87888, z: -5.8 }}
           id={"palacete"}
           events={{ mouseenter: handleOver }}
-          animation__scale={{
-            property: "scale",
-            dir: "alternate",
-            dur: 1000,
-            loop: true,
-            to: "1.04 1.04 1",
-          }}
         />
         <Entity
           classname={"menu"}
@@ -272,15 +308,8 @@ const Main_game = () => {
           geometry={{ primitive: "plane", height: 0.8 }}
           material={triana}
           id={"triana"}
-          position={{ x: 2.124, y: 2, z: -4.8 }}
+          position={{ x: 3.02, y: 1.87888, z: -5.8 }}
           events={{ mouseenter: handleOver }}
-          animation__scale={{
-            property: "scale",
-            dir: "alternate",
-            dur: 1000,
-            loop: true,
-            to: "1.04 1.04 1",
-          }}
         />
         <Entity
           classname={"menu"}
@@ -288,52 +317,103 @@ const Main_game = () => {
           geometry={{ primitive: "plane", height: 0.8 }}
           material={teatro}
           id={"teatro"}
-          position={{ x: 3.21, y: 2, z: -4.8 }}
+          position={{ x: 4.23, y: 1.87888, z: -5.8 }}
           events={{ mouseenter: handleOver }}
-          animation__scale={{
-            property: "scale",
-            dir: "alternate",
-            dur: 1000,
-            loop: true,
-            to: "1.04 1.04 1",
-          }}
         />
+        <Entity
+          geometry={{
+            primitive: "box",
+            depth: 0.4,
+            height: 5,
+            width: 10,
+          }}
+          visible={menu ? true : false}
+          material={mainLayout}
+          position={{ x: 0, y: 2, z: -6.1 }}
+        />
+        {/* /*items----------------------------------------------------------------------------------------------------------------items*/}
+        {/*pilarItems*/}
+        <Entity
+          classname={"pilarnuevoItem"}
+          geometry={{ primitive: "plane", height: 2.2, width: 3.4 }}
+          position={{ x: -2.9, y: 3, z: 6 }}
+          material={oldPilarNuevo}
+          visible={pilarItems ? true : false}
+          rotation="20 150 0"
+        />
+        {/*pilarItems*/}
+        {/*abadItems*/}
+        <Entity
+          classname={"abadItem"}
+          geometry={{ primitive: "plane", height: 2, width: 3 }}
+          position={{ x: -2.7, y: 5.5, z: -5 }}
+          material={oldAbad}
+          visible={abadItems ? true : false}
+          rotation="30 30 0"
+        />
+        {/*abadItems*/}
+        {/*veguetaItems*/}
+        <Entity
+          classname={"veguetaItem"}
+          geometry={{ primitive: "plane", height: 4, width: 5 }}
+          position={{ x: 0, y: 4.4, z: -7 }}
+          material={oldVegueta}
+          visible={veguetaItems ? true : false}
+          rotation="20 -15 0"
+        />
+        {/*veguetaItems*/
+        /*santaaanaItems*/}
 
         <Entity
-          geometry={{
-            primitive: "box",
-            depth: 0.4,
-            height: 1,
-            width: 7.8,
-          }}
-          visible={menu ? true : false}
-          material={{ color: "#000" }}
-          position={{ x: 0, y: 2, z: -5.1 }}
+          classname={"santaAnaItem"}
+          geometry={{ primitive: "plane", height: 2.8, width: 3.8 }}
+          position={{ x: -5, y: 5, z: -3 }}
+          material={oldSantaAna}
+          visible={santaaanaItems ? true : false}
+          rotation="20 50 0"
+        />
+        {/*santaaanaItems*/
+        /*teatroItems*/}
+
+        <Entity
+          classname={"teatroItem"}
+          geometry={{ primitive: "plane", height: 3.8, width: 4.8 }}
+          position={{ x: -0.1, y: 5, z: 7.4 }}
+          material={oldTeatroPg}
+          visible={teatroItems ? true : false}
+          rotation="20 -180 0"
         />
         <Entity
-          classname={"menu"}
-          visible={menu ? true : false}
-          geometry={{
-            primitive: "box",
-            depth: 0.4,
-            height: 1,
-            width: 7.8,
-          }}
-          material={{ color: "#fffaf2" }}
-          position={{ x: 0, y: 3, z: -5.1 }}
+          classname={"teatroItem"}
+          geometry={{ primitive: "plane", height: 4, width: 5 }}
+          position={{ x: 6, y: 4.4, z: -1 }}
+          material={oldPuentepalo}
+          visible={teatroItems ? true : false}
+          rotation="20 -85 0"
         />
         <Entity
-          classname={"menu"}
-          visible={menu ? true : false}
-          geometry={{
-            primitive: "box",
-            depth: 0.4,
-            height: 1,
-            width: 7.8,
-          }}
-          material={{ color: "#fffaf2" }}
-          position={{ x: 0, y: 1, z: -5.1 }}
+          classname={"teatroItem"}
+          geometry={{ primitive: "plane", height: 4, width: 5 }}
+          position={{ x: 6, y: 4.4, z: -1 }}
+          material={oldPuentepalo}
+          visible={teatroItems ? true : false}
+          rotation="20 -85 0"
         />
+        {/*teatroItems*/
+        /*museoItems*/
+        /*museoItems*/
+        /*Triana*/
+        /*Triana*/}
+        <Entity
+          classname={"trianaItem"}
+          geometry={{ primitive: "plane", height: 4, width: 5 }}
+          position={{ x: -5, y: 5.5, z: -4 }}
+          material={oldTranvia}
+          visible={trianaItems ? true : false}
+          rotation="30 50 0"
+        />
+        {/* /*Triana*/
+        /*Palacete */}
         <Entity
           visible={palaceteItems ? true : false}
           geometry={{
@@ -382,6 +462,9 @@ const Main_game = () => {
           width="4.3"
           events={{ mouseenter: playVideo }}
         />
+        {/* /*Palacete*/
+        /*items----------------------------------------------------------------------------------------------------------------items*/
+        /*Camera*/}
         <Entity primitive="a-camera">
           <Entity
             primitive="a-cursor"
@@ -395,6 +478,7 @@ const Main_game = () => {
             }}
           />
         </Entity>
+        {/*Camera*/}
       </Scene>
     </div>
   );
