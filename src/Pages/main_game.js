@@ -407,10 +407,10 @@ const Main_game = () => {
         <Entity
           classname={"trianaItem"}
           geometry={{ primitive: "plane", height: 4, width: 5 }}
-          position={{ x: -5, y: 5.5, z: -4 }}
+          position={{ x: -1.2, y: 5, z: -6.2 }}
           material={oldTranvia}
           visible={trianaItems ? true : false}
-          rotation="30 50 0"
+          rotation="22 10 0"
         />
         {/* /*Triana*/
         /*Palacete */}
