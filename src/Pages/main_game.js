@@ -2,6 +2,7 @@ import "aframe";
 import "aframe-animation-component";
 import "aframe-particle-system-component";
 import "babel-polyfill";
+import { debounce } from "debounce";
 import { Entity, Scene } from "aframe-react";
 import React, { useEffect, useState } from "react";
 import Triana from "../assets/triana.jpg";
@@ -108,6 +109,17 @@ const Main_game = () => {
 
   const [sky, setSky] = useState("triana");
 
+  const handleInit = (event) => {
+    let timer = setTimeout(() => {
+      handleOver(event);
+    }, 2000);
+    console.log(timer);
+
+    event.target.addEventListener("mouseleave", () => {
+      console.log("salgo del target");
+      clearTimeout(timer);
+    });
+  };
   const handleOver = (event) => {
     let entorno = event.target.id;
     setSky(entorno);
@@ -224,7 +236,7 @@ const Main_game = () => {
           material={menu ? hamburguerOpened : hamburguerClosed}
           id={"logo"}
           position={{ x: -4, y: 3.6, z: -5.6 }}
-          events={{ mouseenter: hideMenu }}
+          events={{ mouseenter: debounce(hideMenu, 500) }}
           animation__scale={{
             property: "scale",
             dir: "alternate",
@@ -238,7 +250,7 @@ const Main_game = () => {
           material={exitImage}
           id={"exitImage"}
           position={{ x: 4, y: 3.85, z: -5.8 }}
-          events={{ mouseenter: exit }}
+          events={{ mouseenter: debounce(exit, 1000) }}
           visible={menu ? true : false}
           animation__scale={{
             property: "scale",
@@ -253,7 +265,7 @@ const Main_game = () => {
           geometry={{ primitive: "plane", height: 0.8 }}
           position={{ x: -1.8, y: 1.87888, z: -5.8 }}
           material={perezGaldos}
-          events={{ mouseenter: handleOver }}
+          events={{ mouseenter: handleInit }}
           id={"museopg"}
           visible={menu ? true : false}
         />
@@ -262,7 +274,7 @@ const Main_game = () => {
           geometry={{ primitive: "plane", height: 0.8 }}
           position={{ x: -4.201, y: 1.87888, z: -5.8 }}
           material={vegueta}
-          events={{ mouseenter: handleOver }}
+          events={{ mouseenter: handleInit }}
           id={"vegueta"}
           visible={menu ? true : false}
         />
@@ -271,7 +283,7 @@ const Main_game = () => {
           geometry={{ primitive: "plane", height: 0.8 }}
           position={{ x: -3, y: 1.87888, z: -5.8 }}
           material={abad}
-          events={{ mouseenter: handleOver }}
+          events={{ mouseenter: handleInit }}
           id={"abad"}
           visible={menu ? true : false}
         />
@@ -281,7 +293,7 @@ const Main_game = () => {
           position={{ x: -0.62, y: 1.87888, z: -5.8 }}
           material={pilarnuevo}
           visible={menu ? true : false}
-          events={{ mouseenter: handleOver }}
+          events={{ mouseenter: handleInit }}
           id={"pilarnuevo"}
         />
         <Entity
@@ -290,7 +302,7 @@ const Main_game = () => {
           position={{ x: 0.615, y: 1.87888, z: -5.8 }}
           material={CATEDRAL}
           visible={menu ? true : false}
-          events={{ mouseenter: handleOver }}
+          events={{ mouseenter: handleInit }}
           id={"plazasantaana"}
         />
         <Entity
@@ -300,7 +312,7 @@ const Main_game = () => {
           material={palacete}
           position={{ x: 1.83, y: 1.87888, z: -5.8 }}
           id={"palacete"}
-          events={{ mouseenter: handleOver }}
+          events={{ mouseenter: handleInit }}
         />
         <Entity
           classname={"menu"}
@@ -309,7 +321,7 @@ const Main_game = () => {
           material={triana}
           id={"triana"}
           position={{ x: 3.02, y: 1.87888, z: -5.8 }}
-          events={{ mouseenter: handleOver }}
+          events={{ mouseenter: handleInit }}
         />
         <Entity
           classname={"menu"}
@@ -318,7 +330,7 @@ const Main_game = () => {
           material={teatro}
           id={"teatro"}
           position={{ x: 4.23, y: 1.87888, z: -5.8 }}
-          events={{ mouseenter: handleOver }}
+          events={{ mouseenter: handleInit }}
         />
         <Entity
           geometry={{
