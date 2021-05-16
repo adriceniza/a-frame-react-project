@@ -4,7 +4,7 @@ import "aframe-particle-system-component";
 import "babel-polyfill";
 import { debounce } from "debounce";
 import { Entity, Scene } from "aframe-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Triana from "../assets/triana.jpg";
 import museopg from "../assets/museopg.jpg";
 import Palacete from "../assets/nulaspalmas.jpg";
@@ -121,6 +121,12 @@ const Main_game = () => {
       clearTimeout(timer);
     });
   };
+
+  useEffect(() => {
+    if (sky != "palacete") {
+      stopVideo();
+    }
+  }, []);
   const handleOver = (event) => {
     let entorno = event.target.id;
     setSky(entorno);
