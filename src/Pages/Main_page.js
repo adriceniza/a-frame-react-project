@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import "./Mainpage.css";
 import Aboutus from "../components/Aboutus";
+import { Link } from "react-router-dom";
+import preview from "../assets/preview.mp4";
 const Main_page = () => {
   return (
     <div className="mainPage">
@@ -12,7 +14,12 @@ const Main_page = () => {
       <section id="Aboutus">
         <Aboutus />
       </section>
-      <section id="testsection"></section>
+
+      <section id="previewCSS">
+        <Link to="/Game">
+          <video src={preview} autoPlay loop />
+        </Link>
+      </section>
     </div>
   );
 };

@@ -6,9 +6,17 @@ html {
   background-color: rgb(235, 235, 235);
 }
 
-#testsection {
+#previewCSS {
   height: 100vh;
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  display: flex;
+  justify-content: space-evenly;
+}
+#previewCSS video {
+  height: 70vh;
+  margin-top: 15vh;
+  border-radius: 28px;
+  cursor: pointer;
 }
 
 .index {
@@ -28,10 +36,18 @@ html {
   .text-h1 {
     font-size: 1rem;
   }
+  #previewCSS video {
+    height: 15vh;
+    margin-top: 15vh;
+  }
 }
 @media (min-width: 300px) {
   .text-h1 {
     font-size: 1.9rem;
+  }
+  #previewCSS video {
+    height: 20vh;
+    margin-top: 15vh;
   }
 }
 
@@ -39,15 +55,35 @@ html {
   .text-h1 {
     font-size: 3rem;
   }
+
+  #previewCSS video {
+    height: 40vh;
+    margin-top: 15vh;
+  }
 }
 @media (min-width: 900px) {
   .text-h1 {
     font-size: 4rem;
+  }
+  #previewCSS video {
+    height: 46vh;
+    margin-top: 15vh;
   }
 }
 
 @media (min-width: 1200px) {
   .text-h1 {
     font-size: 6rem;
+  }
+  #previewCSS video {
+    height: 50vh;
+  }
+}
+@media (min-width: 1400px) {
+  .text-h1 {
+    font-size: 6rem;
+  }
+  #previewCSS video {
+    height: 70vh;
   }
 }
