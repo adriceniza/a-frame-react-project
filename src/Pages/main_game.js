@@ -4,7 +4,7 @@ import "aframe-particle-system-component";
 import "babel-polyfill";
 import { debounce } from "debounce";
 import { Entity, Scene } from "aframe-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Triana from "../assets/triana.jpg";
 import museopg from "../assets/museopg.jpg";
 import Palacete from "../assets/nulaspalmas.jpg";
@@ -14,6 +14,7 @@ import Abad from "../assets/sanantonioabad.jpg";
 import plazaSantaana from "../assets/plazasantaana.jpg";
 import veguetaSky from "../assets/teatro.jpg";
 import videoPalacete from "../assets/VídeoPalacete.mp4";
+import audioGaldos1 from "../assets/audios/galdos/1._Museo_Pérez_Galdós[1].m4a";
 const Main_game = () => {
   /* Thumbnails */
 
@@ -112,7 +113,7 @@ const Main_game = () => {
   const handleInit = (event) => {
     let timer = setTimeout(() => {
       handleOver(event);
-    }, 2000);
+    }, 1500);
     console.log(timer);
 
     event.target.addEventListener("mouseleave", () => {
@@ -125,7 +126,7 @@ const Main_game = () => {
     setSky(entorno);
     setTimeout(() => {
       hideMenu();
-    }, 200);
+    }, 100);
 
     /* If 'entorno' equals triana got to the functions who set the props true */
     if (entorno === "palacete") {
@@ -188,9 +189,21 @@ const Main_game = () => {
 
   /* arrow function to play video of Triana */
 
-  const playVideo = () => {
+  const playVideo = (event) => {
+    let timerVideo = setTimeout(() => {
+      const video = document.querySelector("#video");
+      video.play();
+    }, 500);
+
+    event.target.addEventListener("mouseleave", () => {
+      console.log("salgo del target");
+      clearTimeout(timerVideo);
+    });
+  };
+
+  const pauseVideo = () => {
     const video = document.querySelector("#video");
-    video.play();
+    video.pause();
   };
 
   /* arrow function to stop video of Triana */
@@ -219,6 +232,7 @@ const Main_game = () => {
           <img id="palacete" src={Palacete} />
           <img id="plazasantaana" src={plazaSantaana} />
           <img id="abad" src={Abad} />
+          <audio id="teatropgaudio" src={audioGaldos1} />
 
           {/*Triana video */}
           <video loop="false" id="video" src={videoPalacete} />
@@ -424,20 +438,10 @@ const Main_game = () => {
           visible={trianaItems ? true : false}
           rotation="22 10 0"
         />
+
         {/* /*Triana*/
         /*Palacete */}
-        <Entity
-          visible={palaceteItems ? true : false}
-          geometry={{
-            primitive: "box",
-            depth: 0.4,
-            height: 3,
-            width: 4.8,
-          }}
-          material={{ color: "#000" }}
-          position={{ x: 0, y: 5.5, z: -5.1 }}
-          rotation="20 0 0"
-        />
+
         <Entity
           visible={palaceteItems ? true : false}
           geometry={{
@@ -447,7 +451,7 @@ const Main_game = () => {
             width: 4.8,
           }}
           material={{ color: "#fff" }}
-          position={{ x: 0, y: 3.9, z: -5.1 }}
+          position={{ x: 0, y: 4.4, z: -5.1 }}
           rotation="20 0 0"
         />
         <Entity
@@ -461,18 +465,19 @@ const Main_game = () => {
             width: 6,
             font: "https://cdn.aframe.io/fonts/DejaVu-sdf.fnt",
           }}
-          position={{ x: 0, y: 3.8, z: -4.8 }}
+          position={{ x: 0, y: 4.3, z: -4.8 }}
           rotation="20 0 0"
         />
         <Entity
           visible={palaceteItems ? true : false}
           primitive="a-video"
           src="#video"
-          position={{ x: 0, y: 5.3, z: -4.7 }}
+          position={{ x: 0, y: 5.8, z: -4.7 }}
           rotation="20 0 0"
           height="2.7"
           width="4.3"
-          events={{ mouseenter: playVideo }}
+          autoplay="false"
+          events={{ mouseenter: playVideo, mouseleave: pauseVideo }}
         />
         {/* /*Palacete*/
         /*items----------------------------------------------------------------------------------------------------------------items*/
