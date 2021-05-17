@@ -18,6 +18,12 @@ import audioGaldos1 from "../assets/audios/galdos/1._Museo_Pérez_Galdós[1].m4a
 const Main_game = () => {
   /* Thumbnails */
 
+  let logo = {
+    shader: "flat",
+    src: "thumbs/logo.png",
+    transparent: false,
+    color: "#fff",
+  };
   let triana = {
     shader: "flat",
     src: "thumbs/TRIANA-THUMB.jpg",
@@ -25,6 +31,7 @@ const Main_game = () => {
   let teatro = {
     shader: "flat",
     src: "thumbs/Teatro800.jpg",
+    transparent: true,
   };
   let abad = {
     shader: "flat",
@@ -492,8 +499,8 @@ const Main_game = () => {
           <Entity
             primitive="a-cursor"
             cursor="fuse:true;fuseTimeout:500"
-            color="#20dad8"
-            geometry="primitive:circle; radius:0.0145"
+            material={logo}
+            geometry="primitive:circle; radius:0.0245"
           />
         </Entity>
         {/*Camera*/}
