@@ -491,14 +491,9 @@ const Main_game = () => {
         <Entity primitive="a-camera">
           <Entity
             primitive="a-cursor"
+            cursor="fuse:true;fuseTimeout:500"
             color="#20dad8"
-            animation__click={{
-              property: "scale",
-              startEvents: "mouseenter",
-              from: "0.1 0.1 0.1",
-              to: "1 1 1",
-              dur: 150,
-            }}
+            geometry="primitive:circle; radius:0.0145"
           />
         </Entity>
         {/*Camera*/}
