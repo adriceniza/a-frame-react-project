@@ -74,7 +74,7 @@ const Main_game = () => {
   };
   let mainLayout = {
     shader: "flat",
-    src: "Thumbs/layout.png",
+    src: "thumbs/layout.png",
   };
 
   let oldTranvia = {
