@@ -119,12 +119,57 @@ const Main_game = () => {
 
   const handleInit = (event) => {
     let timer = setTimeout(() => {
-      handleOver(event);
+      let entorno = event.target.id;
+      setSky(entorno);
+      setTimeout(() => {
+        hideMenu();
+      }, 100);
+
+      /* If 'entorno' equals triana got to the functions who set the props true */
+      if (entorno === "palacete") {
+        setPalaceteItems(true);
+      } else {
+        setPalaceteItems(false);
+        stopVideo();
+      }
+      if (entorno === "triana") {
+        setTrianaItems(true);
+      } else {
+        setTrianaItems(false);
+      }
+      if (entorno === "abad") {
+        setAbadItems(true);
+      } else {
+        setAbadItems(false);
+      }
+      if (entorno === "museopg") {
+        setMuseoItems(true);
+      } else {
+        setMuseoItems(false);
+      }
+      if (entorno === "vegueta") {
+        setVeguetaItems(true);
+      } else {
+        setVeguetaItems(false);
+      }
+      if (entorno === "plazasantaana") {
+        setSantaAnaItems(true);
+      } else {
+        setSantaAnaItems(false);
+      }
+      if (entorno === "pilarnuevo") {
+        setPilarItems(true);
+      } else {
+        setPilarItems(false);
+      }
+      if (entorno === "teatro") {
+        setTeatroItems(true);
+      } else {
+        setTeatroItems(false);
+      }
     }, 1500);
-    console.log(timer);
 
     event.target.addEventListener("mouseleave", () => {
-      console.log("salgo del target");
       clearTimeout(timer);
     });
   };
@@ -134,56 +179,6 @@ const Main_game = () => {
       stopVideo();
     }
   }, []);
-  const handleOver = (event) => {
-    let entorno = event.target.id;
-    setSky(entorno);
-    setTimeout(() => {
-      hideMenu();
-    }, 100);
-
-    /* If 'entorno' equals triana got to the functions who set the props true */
-    if (entorno === "palacete") {
-      setPalaceteItems(true);
-    } else {
-      setPalaceteItems(false);
-      stopVideo();
-    }
-    if (entorno === "triana") {
-      setTrianaItems(true);
-    } else {
-      setTrianaItems(false);
-    }
-    if (entorno === "abad") {
-      setAbadItems(true);
-    } else {
-      setAbadItems(false);
-    }
-    if (entorno === "museopg") {
-      setMuseoItems(true);
-    } else {
-      setMuseoItems(false);
-    }
-    if (entorno === "vegueta") {
-      setVeguetaItems(true);
-    } else {
-      setVeguetaItems(false);
-    }
-    if (entorno === "plazasantaana") {
-      setSantaAnaItems(true);
-    } else {
-      setSantaAnaItems(false);
-    }
-    if (entorno === "pilarnuevo") {
-      setPilarItems(true);
-    } else {
-      setPilarItems(false);
-    }
-    if (entorno === "teatro") {
-      setTeatroItems(true);
-    } else {
-      setTeatroItems(false);
-    }
-  };
 
   const [trianaItems, setTrianaItems] = useState(false);
   const [palaceteItems, setPalaceteItems] = useState(false);
@@ -263,7 +258,7 @@ const Main_game = () => {
           material={menu ? hamburguerOpened : hamburguerClosed}
           id={"logo"}
           position={{ x: -4, y: 3.6, z: -5.6 }}
-          events={{ mouseenter: debounce(hideMenu, 500) }}
+          events={{ mouseenter: hideMenu }}
           animation__scale={{
             property: "scale",
             dir: "alternate",
