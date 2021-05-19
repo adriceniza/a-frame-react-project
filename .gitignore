@@ -4,4 +4,6 @@ npm-debug.log
 gh-pages
 build
 .firebase
+.firebaserc
+.firebase.json
 /*GitIgnore*/

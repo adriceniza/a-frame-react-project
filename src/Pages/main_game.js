@@ -498,7 +498,6 @@ const Main_game = () => {
         <Entity primitive="a-camera">
           <Entity
             primitive="a-cursor"
-            cursor="fuse:true;fuseTimeout:500"
             material={logo}
             geometry="primitive:circle; radius:0.0245"
           />
