@@ -1,5 +1,4 @@
 import "aframe";
-import "aframe-animation-component";
 import "aframe-particle-system-component";
 import "babel-polyfill";
 import { debounce } from "debounce";
@@ -116,9 +115,12 @@ const Main_game = () => {
   /* Hook to change the environment depending on the id of the thumb*/
 
   const [sky, setSky] = useState("triana");
+  const [menu, setMenu] = useState(false);
 
   const handleInit = (event) => {
-    let timer = setTimeout(() => {
+    if (!menu) {
+      return null;
+    } else {
       let entorno = event.target.id;
       setSky(entorno);
       setTimeout(() => {
@@ -130,6 +132,7 @@ const Main_game = () => {
         setPalaceteItems(true);
       } else {
         setPalaceteItems(false);
+
         stopVideo();
       }
       if (entorno === "triana") {
@@ -167,11 +170,7 @@ const Main_game = () => {
       } else {
         setTeatroItems(false);
       }
-    }, 1500);
-
-    event.target.addEventListener("mouseleave", () => {
-      clearTimeout(timer);
-    });
+    }
   };
 
   useEffect(() => {
@@ -221,8 +220,6 @@ const Main_game = () => {
     video.currentTime = 0;
   };
 
-  const [menu, setMenu] = useState(false);
-
   const hideMenu = () => {
     setMenu(!menu);
   };
@@ -258,7 +255,9 @@ const Main_game = () => {
           material={menu ? hamburguerOpened : hamburguerClosed}
           id={"logo"}
           position={{ x: -4, y: 3.6, z: -5.6 }}
-          events={{ mouseenter: hideMenu }}
+          events={{
+            mouseenter: debounce(hideMenu, 1000),
+          }}
           animation__scale={{
             property: "scale",
             dir: "alternate",
@@ -272,7 +271,7 @@ const Main_game = () => {
           material={exitImage}
           id={"exitImage"}
           position={{ x: 4, y: 3.85, z: -5.8 }}
-          events={{ mouseenter: debounce(exit, 1000) }}
+          events={menu ? { mouseenter: debounce(exit, 1000) } : null}
           visible={menu ? true : false}
           animation__scale={{
             property: "scale",
@@ -282,9 +281,10 @@ const Main_game = () => {
             to: "1.04 1.04 1",
           }}
         />
+
         <Entity
           classname={"menu"}
-          geometry={{ primitive: "plane", height: 0.8 }}
+          geometry={{ primitive: "circle", radius: 0.55 }}
           position={{ x: -1.8, y: 1.87888, z: -5.8 }}
           material={perezGaldos}
           events={{ mouseenter: handleInit }}
@@ -293,7 +293,7 @@ const Main_game = () => {
         />
         <Entity
           classname={"menu"}
-          geometry={{ primitive: "plane", height: 0.8 }}
+          geometry={{ primitive: "circle", radius: 0.55 }}
           position={{ x: -4.201, y: 1.87888, z: -5.8 }}
           material={vegueta}
           events={{ mouseenter: handleInit }}
@@ -302,7 +302,7 @@ const Main_game = () => {
         />
         <Entity
           classname={"menu"}
-          geometry={{ primitive: "plane", height: 0.8 }}
+          geometry={{ primitive: "circle", radius: 0.55 }}
           position={{ x: -3, y: 1.87888, z: -5.8 }}
           material={abad}
           events={{ mouseenter: handleInit }}
@@ -311,7 +311,7 @@ const Main_game = () => {
         />
         <Entity
           classname={"menu"}
-          geometry={{ primitive: "plane", height: 0.8 }}
+          geometry={{ primitive: "circle", radius: 0.55 }}
           position={{ x: -0.62, y: 1.87888, z: -5.8 }}
           material={pilarnuevo}
           visible={menu ? true : false}
@@ -320,17 +320,18 @@ const Main_game = () => {
         />
         <Entity
           classname={"menu"}
-          geometry={{ primitive: "plane", height: 0.8 }}
+          geometry={{ primitive: "circle", radius: 0.55 }}
           position={{ x: 0.615, y: 1.87888, z: -5.8 }}
           material={CATEDRAL}
           visible={menu ? true : false}
           events={{ mouseenter: handleInit }}
           id={"plazasantaana"}
         />
+
         <Entity
           classname={"menu"}
           visible={menu ? true : false}
-          geometry={{ primitive: "plane", height: 0.8 }}
+          geometry={{ primitive: "circle", radius: 0.55 }}
           material={palacete}
           position={{ x: 1.83, y: 1.87888, z: -5.8 }}
           id={"palacete"}
@@ -339,7 +340,7 @@ const Main_game = () => {
         <Entity
           classname={"menu"}
           visible={menu ? true : false}
-          geometry={{ primitive: "plane", height: 0.8 }}
+          geometry={{ primitive: "circle", radius: 0.55 }}
           material={triana}
           id={"triana"}
           position={{ x: 3.02, y: 1.87888, z: -5.8 }}
@@ -348,7 +349,7 @@ const Main_game = () => {
         <Entity
           classname={"menu"}
           visible={menu ? true : false}
-          geometry={{ primitive: "plane", height: 0.8 }}
+          geometry={{ primitive: "circle", radius: 0.55 }}
           material={teatro}
           id={"teatro"}
           position={{ x: 4.23, y: 1.87888, z: -5.8 }}
