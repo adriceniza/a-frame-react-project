@@ -13,7 +13,16 @@ import Abad from "../assets/sanantonioabad.jpg";
 import plazaSantaana from "../assets/plazasantaana.jpg";
 import veguetaSky from "../assets/teatro.jpg";
 import videoPalacete from "../assets/VídeoPalacete.mp4";
-import audioGaldos1 from "../assets/audios/galdos/1._Museo_Pérez_Galdós[1].m4a";
+import audioAbadCasaRoja from "../assets/resultados/audioAbadCasaRoja.mp4";
+import audioAbadSeñalPuntero from "../assets/resultados/audioAbadSeñalPuntero.mp4";
+import audioPalaceteB from "../assets/resultados/audioPalaceteB.mp4";
+import audioPilarNuevo1 from "../assets/resultados/audioPilarNuevo1.mp4";
+import audioSantaAna17 from "../assets/resultados/audioSantaAna17.mp4";
+import audioSantaAnaCatedral from "../assets/resultados/audioSantaAnaCatedral.mp4";
+import audioTeatroEstatua from "../assets/resultados/audioTeatroEstatua.mp4";
+import audioTeatroGuiniguada from "../assets/resultados/audioTeatroGuiniguada.mp4";
+import audioTeatroPG from "../assets/resultados/audioTeatroPG.mp4";
+
 const Main_game = () => {
   /* Thumbnails */
 
@@ -111,6 +120,16 @@ const Main_game = () => {
     src: "oldImages/santaAna.jpg",
     transparent: true,
   };
+  let play = {
+    shader: "flat",
+    src: "oldImages/play.png",
+    transparent: true,
+  };
+  let pause = {
+    shader: "flat",
+    src: "oldImages/pause.png",
+    transparent: true,
+  };
 
   /* Hook to change the environment depending on the id of the thumb*/
 
@@ -133,7 +152,8 @@ const Main_game = () => {
       } else {
         setPalaceteItems(false);
 
-        stopVideo();
+        document.querySelector("#videoPalacete").pause();
+        document.querySelector("#PalaceteB").pause();
       }
       if (entorno === "triana") {
         setTrianaItems(true);
@@ -174,9 +194,12 @@ const Main_game = () => {
   };
 
   useEffect(() => {
-    if (sky != "palacete") {
-      stopVideo();
+    var videos = document.querySelectorAll(".video");
+    for (let i = 0; i < videos.length; i++) {
+      videos[i].stop();
     }
+
+    hideMenu();
   }, []);
 
   const [trianaItems, setTrianaItems] = useState(false);
@@ -194,30 +217,41 @@ const Main_game = () => {
     window.location = "/";
   };
 
-  /* arrow function to play video of Triana */
-
-  const playVideo = (event) => {
-    let timerVideo = setTimeout(() => {
-      const video = document.querySelector("#video");
-      video.play();
-    }, 500);
-
-    event.target.addEventListener("mouseleave", () => {
-      console.log("salgo del target");
-      clearTimeout(timerVideo);
-    });
+  const playVideo = () => {
+    const video = document.querySelector("#videoPalacete");
+    video.play();
   };
 
   const pauseVideo = () => {
-    const video = document.querySelector("#video");
+    const video = document.querySelector("#videoPalacete");
     video.pause();
   };
+  const playAudioB = () => {
+    const video = document.querySelector("#PalaceteB");
+    video.play();
+  };
 
-  /* arrow function to stop video of Triana */
-  const stopVideo = () => {
-    const video = document.querySelector("#video");
+  const pauseAudioB = () => {
+    const video = document.querySelector("#PalaceteB");
     video.pause();
-    video.currentTime = 0;
+  };
+  const playAudioTeatroGuiniguada = () => {
+    const video = document.querySelector("#TeatroGuiniguada");
+    video.play();
+  };
+
+  const pauseAudioTeatroGuiniguada = () => {
+    const video = document.querySelector("#TeatroGuiniguada");
+    video.pause();
+  };
+  const playAudioTeatroEstatua = () => {
+    const video = document.querySelector("#TeatroEstatua");
+    video.play();
+  };
+
+  const pauseAudioTeatroEstatua = () => {
+    const video = document.querySelector("#TeatroEstatua");
+    video.pause();
   };
 
   const hideMenu = () => {
@@ -237,10 +271,30 @@ const Main_game = () => {
           <img id="palacete" src={Palacete} />
           <img id="plazasantaana" src={plazaSantaana} />
           <img id="abad" src={Abad} />
-          <audio id="teatropgaudio" src={audioGaldos1} />
 
           {/*Triana video */}
-          <video loop="false" id="video" src={videoPalacete} />
+          <video loop="false" id="videoPalacete" src={videoPalacete} />
+          <video loop="false" id="AbadCasaRoja" src={audioAbadCasaRoja} />
+          <video
+            loop="false"
+            id="AbadSeñalPuntero"
+            src={audioAbadSeñalPuntero}
+          />
+          <video loop="false" id="PalaceteB" src={audioPalaceteB} />
+          <video loop="false" id="PilarNuevo1" src={audioPilarNuevo1} />
+          <video loop="false" id="SantaAna17" src={audioSantaAna17} />
+          <video
+            loop="false"
+            id="SantaAnaCatedral"
+            src={audioSantaAnaCatedral}
+          />
+          <video loop="false" id="TeatroEstatua" src={audioTeatroEstatua} />
+          <video
+            loop="false"
+            id="TeatroGuiniguada"
+            src={audioTeatroGuiniguada}
+          />
+          <video loop="false" id="TeatroPG" src={audioTeatroPG} />
         </a-assets>
         <Entity primitive="a-light" type="ambient" color="#445451" />
         <Entity
@@ -267,11 +321,14 @@ const Main_game = () => {
           }}
         />
         <Entity
+          classname={"menu"}
           geometry={{ primitive: "plane", height: 1.2, width: 2 }}
           material={exitImage}
           id={"exitImage"}
           position={{ x: 4, y: 3.85, z: -5.8 }}
-          events={menu ? { mouseenter: debounce(exit, 1000) } : null}
+          events={
+            menu ? { mouseenter: debounce(exit, 1000) } : { mouseenter: null }
+          }
           visible={menu ? true : false}
           animation__scale={{
             property: "scale",
@@ -434,6 +491,80 @@ const Main_game = () => {
           visible={teatroItems ? true : false}
           rotation="20 -85 0"
         />
+        <Entity
+          visible={teatroItems ? true : false}
+          id={"TeatroGuiniguada"}
+          primitive="a-video"
+          src="#TeatroGuiniguada"
+          position={{ x: 5, y: 3.8, z: 5 }}
+          rotation="0 -124 0"
+          height="2.3"
+          width="2.3"
+          autoplay="false"
+        />
+        <Entity
+          visible={teatroItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
+          }}
+          material={play}
+          position={{ x: 4.8, y: 1.8, z: 4.3 }}
+          rotation="0 -124 0"
+          events={{ mouseenter: playAudioTeatroGuiniguada }}
+        />
+        <Entity
+          visible={teatroItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
+          }}
+          material={pause}
+          position={{ x: 4.3, y: 1.8, z: 5 }}
+          rotation="0 -124 0"
+          events={{ mouseenter: pauseAudioTeatroGuiniguada }}
+        />
+        <Entity
+          visible={teatroItems ? true : false}
+          id={"TeatroEstatua"}
+          primitive="a-video"
+          src="#TeatroEstatua"
+          position={{ x: -8, y: 1.1, z: 0.5 }}
+          rotation="0 90 0"
+          height="2"
+          width="2"
+          autoplay="false"
+        />
+        <Entity
+          visible={teatroItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
+          }}
+          material={play}
+          position={{ x: -8, y: -0.3, z: 0.9 }}
+          rotation="0 90 0"
+          events={{ mouseenter: playAudioTeatroEstatua }}
+        />
+        <Entity
+          visible={teatroItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
+          }}
+          material={pause}
+          position={{ x: -8, y: -0.3, z: -0 }}
+          rotation="0 90 0"
+          events={{ mouseenter: pauseAudioTeatroEstatua }}
+        />
         {/*teatroItems*/
         /*museoItems*/
         /*museoItems*/
@@ -453,40 +584,77 @@ const Main_game = () => {
 
         <Entity
           visible={palaceteItems ? true : false}
+          id={"videoPalaceteB"}
+          primitive="a-video"
+          src="#PalaceteB"
+          position={{ x: 7, y: 3.8, z: -5 }}
+          rotation="0 -54 0"
+          height="2.3"
+          width="2.3"
+          autoplay="false"
+        />
+        <Entity
+          visible={palaceteItems ? true : false}
           geometry={{
             primitive: "box",
-            depth: 0.4,
-            height: 0.5,
-            width: 4.8,
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
           }}
-          material={{ color: "#fff" }}
-          position={{ x: 0, y: 4.4, z: -5.1 }}
-          rotation="20 0 0"
+          material={play}
+          position={{ x: 6.3, y: 1.8, z: -5 }}
+          rotation="0 130 0"
+          events={{ mouseenter: playAudioB }}
         />
         <Entity
           visible={palaceteItems ? true : false}
-          id={"textoTriana"}
-          text={{
-            value: "Mira hacia la pantalla",
-            align: "center",
-            color: "black",
-            height: 6,
-            width: 6,
-            font: "https://cdn.aframe.io/fonts/DejaVu-sdf.fnt",
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
           }}
-          position={{ x: 0, y: 4.3, z: -4.8 }}
-          rotation="20 0 0"
+          material={pause}
+          position={{ x: 7.8, y: 1.8, z: -5 }}
+          rotation="0 130 0"
+          events={{ mouseenter: pauseAudioB }}
         />
         <Entity
           visible={palaceteItems ? true : false}
+          id={"videoPalacete"}
           primitive="a-video"
-          src="#video"
+          src="#videoPalacete"
           position={{ x: 0, y: 5.8, z: -4.7 }}
           rotation="20 0 0"
           height="2.7"
           width="4.3"
           autoplay="false"
-          events={{ mouseenter: playVideo, mouseleave: pauseVideo }}
+        />
+        <Entity
+          visible={palaceteItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.5,
+            width: 0.7,
+          }}
+          material={play}
+          position={{ x: -0.5, y: 3.8, z: -4.9 }}
+          rotation="20 0 0"
+          events={{ mouseenter: playVideo }}
+        />
+        <Entity
+          visible={palaceteItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.5,
+            width: 0.7,
+          }}
+          material={pause}
+          position={{ x: 0.5, y: 3.8, z: -4.9 }}
+          rotation="20 0 0"
+          events={{ mouseenter: pauseVideo }}
         />
         {/* /*Palacete*/
         /*items----------------------------------------------------------------------------------------------------------------items*/

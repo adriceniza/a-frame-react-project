@@ -4,6 +4,7 @@ import "./Mainpage.css";
 import Aboutus from "../components/Aboutus";
 import { Link } from "react-router-dom";
 import preview from "../assets/preview.mp4";
+
 const Main_page = () => {
   return (
     <div className="mainPage">
@@ -16,9 +17,10 @@ const Main_page = () => {
       </section>
 
       <section id="previewCSS">
-        <Link to="/Game">
-          <video src={preview} autoPlay loop />
-        </Link>
+        <div className="centeredDiv">
+          <h1>Haz click para entrar a la experiencia vr</h1>
+          <video src={preview} autoplay loop />
+        </div>
       </section>
     </div>
   );

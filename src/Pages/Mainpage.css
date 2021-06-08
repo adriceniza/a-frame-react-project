@@ -16,14 +16,24 @@ html {
   height: 70vh;
   margin-top: 15vh;
   border-radius: 28px;
-  cursor: pointer;
 }
 
 .index {
   height: 10vw;
   font-family: "Righteous", cursive;
 }
-
+.centeredDiv {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.centeredDiv h1 {
+  text-align: center;
+  position: absolute;
+  color: white;
+  margin: 5vh 5vh;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 .text-h1 {
   font-size: 120px;
   color: rgb(243, 243, 243);
