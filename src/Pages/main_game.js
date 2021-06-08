@@ -194,11 +194,7 @@ const Main_game = () => {
   };
 
   useEffect(() => {
-    var videos = document.querySelectorAll(".video");
-    for (let i = 0; i < videos.length; i++) {
-      videos[i].stop();
-    }
-
+    setSky("triana");
     hideMenu();
   }, []);
 
@@ -325,28 +321,16 @@ const Main_game = () => {
           <img id="abad" src={Abad} />
 
           {/*Triana video */}
-          <video loop="false" id="videoPalacete" src={videoPalacete} />
-          <video loop="false" id="AbadCasaRoja" src={audioAbadCasaRoja} />
-          <video
-            loop="false"
-            id="AbadSeñalPuntero"
-            src={audioAbadSeñalPuntero}
-          />
-          <video loop="false" id="PalaceteB" src={audioPalaceteB} />
-          <video loop="false" id="PilarNuevo1" src={audioPilarNuevo1} />
-          <video loop="false" id="SantaAna17" src={audioSantaAna17} />
-          <video
-            loop="false"
-            id="SantaAnaCatedral"
-            src={audioSantaAnaCatedral}
-          />
-          <video loop="false" id="TeatroEstatua" src={audioTeatroEstatua} />
-          <video
-            loop="false"
-            id="TeatroGuiniguada"
-            src={audioTeatroGuiniguada}
-          />
-          <video loop="false" id="TeatroPG" src={audioTeatroPG} />
+          <video id="videoPalacete" src={videoPalacete} />
+          <video id="AbadCasaRoja" src={audioAbadCasaRoja} />
+          <video id="AbadSeñalPuntero" src={audioAbadSeñalPuntero} />
+          <video id="PalaceteB" src={audioPalaceteB} />
+          <video id="PilarNuevo1" src={audioPilarNuevo1} />
+          <video id="SantaAna17" src={audioSantaAna17} />
+          <video id="SantaAnaCatedral" src={audioSantaAnaCatedral} />
+          <video id="TeatroEstatua" src={audioTeatroEstatua} />
+          <video id="TeatroGuiniguada" src={audioTeatroGuiniguada} />
+          <video id="TeatroPG" src={audioTeatroPG} />
         </a-assets>
         <Entity primitive="a-light" type="ambient" color="#445451" />
         <Entity
@@ -505,7 +489,7 @@ const Main_game = () => {
             width: 0.4,
           }}
           material={play}
-          position={{ x: 6, y: 3.1, z: 0.4 }}
+          position={{ x: 6, y: 3.1, z: 0.2 }}
           rotation="0 94 0"
           events={
             pilarItems
@@ -522,7 +506,7 @@ const Main_game = () => {
             width: 0.4,
           }}
           material={pause}
-          position={{ x: 6, y: 3.1, z: 1.2 }}
+          position={{ x: 6, y: 3.1, z: 0.9 }}
           rotation="0 -94 0"
           events={
             pilarItems
