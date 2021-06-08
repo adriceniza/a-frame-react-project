@@ -254,6 +254,58 @@ const Main_game = () => {
     video.pause();
   };
 
+  const playAbadCasaRoja = () => {
+    const video = document.querySelector("#AbadCasaRoja");
+    video.play();
+  };
+  const pauseAbadCasaRoja = () => {
+    const video = document.querySelector("#AbadCasaRoja");
+    video.pause();
+  };
+
+  const playAbadSeñal = () => {
+    const video = document.querySelector("#AbadSeñalPuntero");
+    video.play();
+  };
+  const pauseAbadSeñal = () => {
+    const video = document.querySelector("#AbadSeñalPuntero");
+    video.pause();
+  };
+
+  const playPilarCasaBanca = () => {
+    const video = document.querySelector("#PilarNuevo1");
+    video.play();
+  };
+  const pausePilarCasaBlanca = () => {
+    const video = document.querySelector("#PilarNuevo1");
+    video.pause();
+  };
+
+  const playSantaAnaCatedral = () => {
+    const video = document.querySelector("#SantaAnaCatedral");
+    video.play();
+  };
+  const pauseSantaAnaCatedral = () => {
+    const video = document.querySelector("#SantaAnaCatedral");
+    video.pause();
+  };
+  const playSantaAna17 = () => {
+    const video = document.querySelector("#SantaAna17");
+    video.play();
+  };
+  const pauseSantaAna17 = () => {
+    const video = document.querySelector("#SantaAna17");
+    video.pause();
+  };
+  const playAudioTeatroPG = () => {
+    const video = document.querySelector("#TeatroPG");
+    video.play();
+  };
+  const pauseAudioTeatroPG = () => {
+    const video = document.querySelector("#TeatroPG");
+    video.pause();
+  };
+
   const hideMenu = () => {
     setMenu(!menu);
   };
@@ -433,6 +485,51 @@ const Main_game = () => {
           visible={pilarItems ? true : false}
           rotation="20 150 0"
         />
+        <Entity
+          visible={pilarItems ? true : false}
+          id={"pilarCasaBlanca"}
+          primitive="a-video"
+          src="#PilarNuevo1"
+          position={{ x: 7.2, y: 4.7, z: 0.7 }}
+          rotation="0 -94 0"
+          height="1.6"
+          width="1.6"
+          autoplay="false"
+        />
+        <Entity
+          visible={pilarItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.3,
+            width: 0.4,
+          }}
+          material={play}
+          position={{ x: 6, y: 3.1, z: 0.4 }}
+          rotation="0 94 0"
+          events={
+            pilarItems
+              ? { mouseenter: playPilarCasaBanca }
+              : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={pilarItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.3,
+            width: 0.4,
+          }}
+          material={pause}
+          position={{ x: 6, y: 3.1, z: 1.2 }}
+          rotation="0 -94 0"
+          events={
+            pilarItems
+              ? { mouseenter: pausePilarCasaBlanca }
+              : { mouseenter: null }
+          }
+        />
         {/*pilarItems*/}
         {/*abadItems*/}
         <Entity
@@ -442,6 +539,88 @@ const Main_game = () => {
           material={oldAbad}
           visible={abadItems ? true : false}
           rotation="30 30 0"
+        />
+        <Entity
+          visible={abadItems ? true : false}
+          id={"abadCasaRoja"}
+          primitive="a-video"
+          src="#AbadCasaRoja"
+          position={{ x: -7.7, y: 3.5, z: -1 }}
+          rotation="0 75 0"
+          height="2"
+          width="2"
+          autoplay="false"
+        />
+        <Entity
+          visible={abadItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
+          }}
+          material={play}
+          position={{ x: -7.7, y: 2, z: -0.5 }}
+          rotation="0 -124 0"
+          events={
+            abadItems ? { mouseenter: playAbadCasaRoja } : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={abadItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
+          }}
+          material={pause}
+          position={{ x: -7.1, y: 2, z: -1.5 }}
+          rotation="0 -124 0"
+          events={
+            abadItems ? { mouseenter: pauseAbadCasaRoja } : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={abadItems ? true : false}
+          id={"abadSeñal"}
+          primitive="a-video"
+          src="#AbadSeñalPuntero"
+          position={{ x: 6.2, y: 4, z: -1.7 }}
+          rotation="0 -74 0"
+          height="1.6"
+          width="1.6"
+          autoplay="false"
+        />
+        <Entity
+          visible={abadItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
+          }}
+          material={play}
+          position={{ x: 6, y: 2.7, z: -2.1 }}
+          rotation="0 -60 0"
+          events={
+            abadItems ? { mouseenter: playAbadSeñal } : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={abadItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.4,
+            width: 0.6,
+          }}
+          material={pause}
+          position={{ x: 6.5, y: 2.7, z: -1.2 }}
+          rotation="0 -60 0"
+          events={
+            abadItems ? { mouseenter: pauseAbadSeñal } : { mouseenter: null }
+          }
         />
         {/*abadItems*/}
         {/*veguetaItems*/}
@@ -463,6 +642,96 @@ const Main_game = () => {
           material={oldSantaAna}
           visible={santaaanaItems ? true : false}
           rotation="20 50 0"
+        />
+        <Entity
+          visible={santaaanaItems ? true : false}
+          id={"santaAnaRecurso"}
+          primitive="a-video"
+          src="#SantaAnaCatedral"
+          position={{ x: 2.5, y: 4.5, z: 5.8 }}
+          rotation="20 -160 0"
+          height="1.1"
+          width="1.1"
+          autoplay="false"
+        />
+        <Entity
+          visible={santaaanaItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.2,
+            width: 0.3,
+          }}
+          material={play}
+          position={{ x: 2.9, y: 3.7, z: 6 }}
+          rotation="-20 20 0"
+          events={
+            santaaanaItems
+              ? { mouseenter: playSantaAnaCatedral }
+              : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={santaaanaItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.2,
+            width: 0.3,
+          }}
+          material={pause}
+          position={{ x: 2.4, y: 3.7, z: 6.2 }}
+          rotation="-20 20 0"
+          events={
+            santaaanaItems
+              ? { mouseenter: pauseSantaAnaCatedral }
+              : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={santaaanaItems ? true : false}
+          id={"santaAna17"}
+          primitive="a-video"
+          src="#SantaAna17"
+          position={{ x: 8, y: 5, z: 0.6 }}
+          rotation="30 -90 0"
+          height="1.6"
+          width="1.6"
+          autoplay="false"
+        />
+        <Entity
+          visible={santaaanaItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.3,
+            width: 0.3,
+          }}
+          material={play}
+          position={{ x: 6, y: 3, z: 0.1 }}
+          rotation="0 -90 0"
+          events={
+            santaaanaItems
+              ? { mouseenter: playSantaAna17 }
+              : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={santaaanaItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.3,
+            width: 0.3,
+          }}
+          material={pause}
+          position={{ x: 6, y: 3, z: 0.5 }}
+          rotation="30 -90 0"
+          events={
+            santaaanaItems
+              ? { mouseenter: pauseSantaAna17 }
+              : { mouseenter: null }
+          }
         />
         {/*santaaanaItems*/
         /*teatroItems*/}
@@ -496,10 +765,10 @@ const Main_game = () => {
           id={"TeatroGuiniguada"}
           primitive="a-video"
           src="#TeatroGuiniguada"
-          position={{ x: 5, y: 3.8, z: 5 }}
-          rotation="0 -124 0"
-          height="2.3"
-          width="2.3"
+          position={{ x: 6, y: 3.7, z: 5 }}
+          rotation="0 -126 0"
+          height="1.6"
+          width="1.6"
           autoplay="false"
         />
         <Entity
@@ -507,26 +776,79 @@ const Main_game = () => {
           geometry={{
             primitive: "box",
             depth: 0,
-            height: 0.4,
-            width: 0.6,
+            height: 0.3,
+            width: 0.4,
           }}
           material={play}
-          position={{ x: 4.8, y: 1.8, z: 4.3 }}
+          position={{ x: 5.8, y: 2.3, z: 4.3 }}
           rotation="0 -124 0"
-          events={{ mouseenter: playAudioTeatroGuiniguada }}
+          events={
+            teatroItems
+              ? { mouseenter: playAudioTeatroGuiniguada }
+              : { mouseenter: null }
+          }
         />
         <Entity
           visible={teatroItems ? true : false}
           geometry={{
             primitive: "box",
             depth: 0,
-            height: 0.4,
-            width: 0.6,
+            height: 0.3,
+            width: 0.4,
           }}
           material={pause}
-          position={{ x: 4.3, y: 1.8, z: 5 }}
+          position={{ x: 5.5, y: 2.3, z: 5 }}
           rotation="0 -124 0"
-          events={{ mouseenter: pauseAudioTeatroGuiniguada }}
+          events={
+            teatroItems
+              ? { mouseenter: pauseAudioTeatroGuiniguada }
+              : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={teatroItems ? true : false}
+          id={"TeatroPG"}
+          primitive="a-video"
+          src="#TeatroPG"
+          position={{ x: -6, y: 3.7, z: 5 }}
+          rotation="0 126 0"
+          height="1.6"
+          width="1.6"
+          autoplay="false"
+        />
+        <Entity
+          visible={teatroItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.3,
+            width: 0.4,
+          }}
+          material={play}
+          position={{ x: -5.5, y: 2.3, z: 5 }}
+          rotation="0 124 0"
+          events={
+            teatroItems
+              ? { mouseenter: playAudioTeatroPG }
+              : { mouseenter: null }
+          }
+        />
+        <Entity
+          visible={teatroItems ? true : false}
+          geometry={{
+            primitive: "box",
+            depth: 0,
+            height: 0.3,
+            width: 0.4,
+          }}
+          material={pause}
+          position={{ x: -5.8, y: 2.3, z: 4.3 }}
+          rotation="0 124 0"
+          events={
+            teatroItems
+              ? { mouseenter: pauseAudioTeatroPG }
+              : { mouseenter: null }
+          }
         />
         <Entity
           visible={teatroItems ? true : false}
@@ -550,7 +872,11 @@ const Main_game = () => {
           material={play}
           position={{ x: -8, y: -0.3, z: 0.9 }}
           rotation="0 90 0"
-          events={{ mouseenter: playAudioTeatroEstatua }}
+          events={
+            teatroItems
+              ? { mouseenter: playAudioTeatroEstatua }
+              : { mouseenter: null }
+          }
         />
         <Entity
           visible={teatroItems ? true : false}
@@ -563,7 +889,11 @@ const Main_game = () => {
           material={pause}
           position={{ x: -8, y: -0.3, z: -0 }}
           rotation="0 90 0"
-          events={{ mouseenter: pauseAudioTeatroEstatua }}
+          events={
+            teatroItems
+              ? { mouseenter: pauseAudioTeatroEstatua }
+              : { mouseenter: null }
+          }
         />
         {/*teatroItems*/
         /*museoItems*/
@@ -604,7 +934,9 @@ const Main_game = () => {
           material={play}
           position={{ x: 6.3, y: 1.8, z: -5 }}
           rotation="0 130 0"
-          events={{ mouseenter: playAudioB }}
+          events={
+            palaceteItems ? { mouseenter: playAudioB } : { mouseenter: null }
+          }
         />
         <Entity
           visible={palaceteItems ? true : false}
@@ -617,7 +949,9 @@ const Main_game = () => {
           material={pause}
           position={{ x: 7.8, y: 1.8, z: -5 }}
           rotation="0 130 0"
-          events={{ mouseenter: pauseAudioB }}
+          events={
+            palaceteItems ? { mouseenter: pauseAudioB } : { mouseenter: null }
+          }
         />
         <Entity
           visible={palaceteItems ? true : false}
@@ -641,7 +975,9 @@ const Main_game = () => {
           material={play}
           position={{ x: -0.5, y: 3.8, z: -4.9 }}
           rotation="20 0 0"
-          events={{ mouseenter: playVideo }}
+          events={
+            palaceteItems ? { mouseenter: playVideo } : { mouseenter: null }
+          }
         />
         <Entity
           visible={palaceteItems ? true : false}
@@ -654,7 +990,9 @@ const Main_game = () => {
           material={pause}
           position={{ x: 0.5, y: 3.8, z: -4.9 }}
           rotation="20 0 0"
-          events={{ mouseenter: pauseVideo }}
+          events={
+            palaceteItems ? { mouseenter: pauseVideo } : { mouseenter: null }
+          }
         />
         {/* /*Palacete*/
         /*items----------------------------------------------------------------------------------------------------------------items*/
